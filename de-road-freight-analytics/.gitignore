@@ -1,0 +1,17 @@
+# Raw data is reproducible via download scripts, do not commit
+data_raw/*
+!data_raw/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# DuckDB working files
+*.duckdb.wal
