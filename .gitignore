@@ -1,6 +1,10 @@
 # Raw data is reproducible via download scripts, do not commit
 data_raw/*
 !data_raw/.gitkeep
+# Exceptions: these reference tables are hand-transcribed from PDFs
+# (no machine API), so they ARE committed, unlike the big downloads.
+!data_raw/uba_emission_factors_freight_2024.csv
+!data_raw/tollcollect_maut_rates_2024.csv
 
 # Python
 __pycache__/

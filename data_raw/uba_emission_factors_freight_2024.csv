@@ -1,0 +1,10 @@
+source,reference_year,tremod_version,scope,vehicle_category,vehicle_category_de,ghg_gco2e_per_tkm,nox_g_per_tkm,pm_g_per_tkm
+UBA Verkehrsmittelvergleich Gueterverkehr,2024,TREMOD 6.71B (10/2025),well-to-wheel (incl. energy supply chain); GHG as CO2e AR5,All trucks >=3.5t GVW (total),Lkw gesamt,118,0.162,0.009
+UBA Verkehrsmittelvergleich Gueterverkehr,2024,TREMOD 6.71B (10/2025),well-to-wheel (incl. energy supply chain); GHG as CO2e AR5,Rigid truck 3.5-7.5t,Lkw 3.5-7.5t,561,1.537,0.062
+UBA Verkehrsmittelvergleich Gueterverkehr,2024,TREMOD 6.71B (10/2025),well-to-wheel (incl. energy supply chain); GHG as CO2e AR5,Rigid truck 7.5-12t,Lkw 7.5-12t,393,0.917,0.036
+UBA Verkehrsmittelvergleich Gueterverkehr,2024,TREMOD 6.71B (10/2025),well-to-wheel (incl. energy supply chain); GHG as CO2e AR5,Rigid truck >12t,Lkw >12t,250,0.501,0.019
+UBA Verkehrsmittelvergleich Gueterverkehr,2024,TREMOD 6.71B (10/2025),well-to-wheel (incl. energy supply chain); GHG as CO2e AR5,Truck-trailer & articulated (long-haul),Last- & Sattelzuege,101,0.113,0.007
+UBA Verkehrsmittelvergleich Gueterverkehr,2024,TREMOD 6.71B (10/2025),well-to-wheel (incl. energy supply chain); GHG as CO2e AR5,Rail freight (average mix),Gueterbahnen,14,0.027,0.001
+UBA Verkehrsmittelvergleich Gueterverkehr,2024,TREMOD 6.71B (10/2025),well-to-wheel (incl. energy supply chain); GHG as CO2e AR5,Rail freight diesel traction,Gueterbahnen Dieseltraktion,29,0.239,0.006
+UBA Verkehrsmittelvergleich Gueterverkehr,2024,TREMOD 6.71B (10/2025),well-to-wheel (incl. energy supply chain); GHG as CO2e AR5,Rail freight electric traction,Gueterbahnen Elektrotraktion,13,0.017,0.001
+UBA Verkehrsmittelvergleich Gueterverkehr,2024,TREMOD 6.71B (10/2025),well-to-wheel (incl. energy supply chain); GHG as CO2e AR5,Inland waterway vessel,Binnenschiffe,32,0.352,0.009

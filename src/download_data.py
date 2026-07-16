@@ -20,6 +20,9 @@ DATASETS = {
     "road_go_ta_dc": "freight_by_distance_class",
     # National freight by region of loading (NUTS 3) and group of goods
     "road_go_na_rl3g": "freight_by_region_loading",
+    # Electricity prices for non-household (industrial) consumers, bi-annual,
+    # by consumption band. Used for the e-truck charging cost in Q2.
+    "nrg_pc_205": "electricity_price_nonhousehold",
 }
 
 
@@ -42,4 +45,11 @@ if __name__ == "__main__":
         "\nReminder: download the Weekly Oil Bulletin price history xlsx "
         "manually into data_raw/ (search 'Weekly Oil Bulletin', "
         "energy.ec.europa.eu, file: price history)."
+    )
+    print(
+        "Note: UBA road-freight emission factors and Toll Collect Maut rates "
+        "have no machine API. They are hand-transcribed from PDFs into "
+        "data_raw/uba_emission_factors_freight_2024.csv and "
+        "data_raw/tollcollect_maut_rates_2024.csv (committed to the repo, "
+        "unlike the other raw files). Sources are in docs/data_notes.md."
     )

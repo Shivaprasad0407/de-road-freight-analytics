@@ -56,6 +56,39 @@ XLSX with 7 sheets: `Prices with taxes`, `Prices wo taxes`, `Consumption`, `VAT`
   - `Consumption` is ANNUAL, not weekly: first column is `Year` (2024, 2023, …) and units are 1000 t / kt. The profiler's date parser misreads it (it assumes a Date column) — parse it separately if used.
   - `VAT`, `Excise duties`, `Excise duties - components`, `Other Indirect Taxes` use a completely different layout (the country `XX_...` group-label pattern is absent). Not needed for the diesel price series — ignore unless modelling the tax component directly.
 
+## UBA emission factors (freight, g CO2e per tonne-km)
+
+Stored as `data_raw/uba_emission_factors_freight_2024.csv` (committed, unlike the other raw files).
+
+- Source: UBA "Vergleich der durchschnittlichen Emissionen einzelner Verkehrsmittel im Güterverkehr in Deutschland 2024", table PDF, `vtv_2024_gv_tab_pdf_0.pdf`, from https://www.umweltbundesamt.de/themen/verkehr/emissionsdaten. Model: TREMOD 6.71B (10/2025). Reference year 2024. Date checked: 2026-07-16.
+- No machine API — hand-transcribed from the PDF. Nine rows: trucks (total + four sub-classes), rail (total + diesel + electric), inland ship.
+- Key values (g CO2e/tkm): Lkw total 118; rigid 3.5–7.5t 561; 7.5–12t 393; >12t 250; truck-trailer & articulated 101; rail 14; inland ship 32.
+- Scope caveat (important): these are **well-to-wheel CO2-equivalents** — they include the energy supply chain (fuel/electricity production) and CH4+N2O (AR5), not just tailpipe CO2. This matches the GLEC framework the project cites. But Q2's toll CO2 surcharge is tailpipe-based; do not silently mix well-to-wheel freight factors with tank-to-wheel cost-model factors.
+- The per-tkm factor falls sharply as trucks get heavier (561 → 101), because big articulated trucks carry far more payload per litre. This means the distance-band dimension in Q1 is meaningful: short-haul (lighter trucks) is more carbon-intense per tkm than long-haul. The choice of which factor to apply to which band is logged as assumption #7.
+
+## Toll Collect Maut rates (Q2)
+
+Stored as `data_raw/tollcollect_maut_rates_2024.csv` (committed reference).
+
+- Source: Toll Collect / BALM per-km rate table, in force since 1 July 2024. Primary file: `mautsaetze_07_2024_vergleich_d.pdf` (toll-collect.de), cross-checked against the impargo rate-table article. Date checked: 2026-07-16.
+- Rates are cent/km, total = infrastructure + air pollution + noise + CO2 surcharge. The CSV keeps the total and the CO2 component (the surcharge e-trucks avoid — the whole point of Q2).
+- Table covers all six weight/axle classes. CO2 class 1 is given for every Euro class; CO2 classes 2-4 only for Euro 6 (older trucks can only be class 1). CO2 class 5 = zero-emission, exempt until 30 June 2031 (rows set to 0).
+- 40t long-haul reference row: >18t, 5+ axles, Euro 6, CO2 class 1 = 34.8 ct/km total, of which 15.8 ct/km is the CO2 surcharge. This is the diesel baseline for Q2; the e-truck pays 0 (class 5).
+- Every truck is placed in CO2 class 1 by default; better classes need an application. Use class 1 as the realistic diesel default unless modelling the re-classification case.
+- CO2 reference values tighten yearly (2.5%/yr to 2026, 3%/yr from 2027), so a truck can slip to a worse class over time without changing. Note if modelling multi-year.
+
+## Industrial electricity price (Q2)
+
+- Pulled via `download_data.py` as Eurostat `nrg_pc_205` (electricity prices for non-household consumers, bi-annual, by consumption band) into data_raw (reproducible, not committed).
+- Planning value: ~0.20 EUR/kWh for German industrial/depot charging (Eurostat non-household, Dec 2024). Medium band (20-500 MWh) ~23.3 ct/kWh; average without reductions ~16.77 ct/kWh in 2024. Logged as assumption #8.
+- Caveat: public fast-charging is 2-3x higher and would erase much of the e-truck cost advantage. Treat electricity price as a sensitivity axis.
+
+## Truck cost and consumption assumptions (Q2, Q3)
+
+All logged in `docs/assumptions.md` (#1-5, #8) with sources. Key points:
+- Diesel 40t long-haul: 30 l/100km (ICCT combined-load reference). E-truck: 103 kWh/100km (eActros 600 real-world test). E-truck range 500 km/charge.
+- Purchase-price gap (~180-220k EUR) is an ESTIMATE — manufacturers don't publish e-truck list prices. It is the weakest input and the Q2 break-even is very sensitive to it; run a range, don't report a single point.
+
 ## Known caveats to carry into the analysis
 
 - 21.6% of EU road freight vehicle-km in 2024 were empty runs (Eurostat). Emission factors per tonne-km partially absorb this, note in limitations.
