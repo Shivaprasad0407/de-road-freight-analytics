@@ -2,3 +2,4 @@ pandas>=2.0
 duckdb>=1.0
 requests>=2.31
 openpyxl>=3.1
+eurostat>=1.0

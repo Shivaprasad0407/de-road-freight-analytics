@@ -42,7 +42,7 @@ docs/         Assumptions log and data notes.
 ## Status
 
 - [x] Questions defined, scaffold created
-- [ ] Data downloaded and profiled
+- [x] Data downloaded and profiled
 - [ ] Cleaning scripts
 - [ ] SQL models (Q1, Q2, Q3)
 - [ ] Power BI report
