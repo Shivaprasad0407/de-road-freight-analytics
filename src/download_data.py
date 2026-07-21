@@ -62,9 +62,26 @@ def download_nuts_names() -> None:
     print(f"saved {out_path}  ({len(df)} DE codes)")
 
 
+def download_nst07_names() -> None:
+    """Code -> label lookup for NST2007 goods types (GT01..GT20), from the
+    Eurostat dimension dictionary. Lets the SQL layer show goods names
+    instead of codes, via a keyed join on nst07."""
+    out_path = RAW_DIR / "nst07_goods_names.csv"
+    if out_path.exists():
+        print(f"skip (exists): {out_path}")
+        return
+    print("downloading NST07 goods dictionary ...")
+    dic = eurostat.get_dic("road_go_na_rl3g", "nst07")
+    items = dic.items() if isinstance(dic, dict) else dic
+    df = pd.DataFrame(list(items), columns=["nst07", "goods_name"])
+    df.to_csv(out_path, index=False, encoding="utf-8-sig")
+    print(f"saved {out_path}  ({len(df)} goods codes)")
+
+
 if __name__ == "__main__":
     download_all()
     download_nuts_names()
+    download_nst07_names()
     print(
         "\nReminder: download the Weekly Oil Bulletin price history xlsx "
         "manually into data_raw/ (search 'Weekly Oil Bulletin', "

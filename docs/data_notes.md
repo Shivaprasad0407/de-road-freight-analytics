@@ -19,6 +19,9 @@ Shape 3778 x 31. Wide format, one column per year 1999–2024 (26 year columns).
 - Distance class codes and their meaning:
   - `KM_LT50`, `KM50-149`, `KM150-299`, `KM300-499`, `KM500-999`, `KM1000-1999`, `KM2000-5999`, `KM_GE6000`, plus `TOTAL`. Nine values, listed out of order in the raw file. `TOTAL` is an aggregate — exclude when summing buckets.
 - Coverage: years 1999–2024; usable series thins out toward 2024.
+- Sum-of-bands does not always equal the reported `TOTAL` row. In most years they match to ~1 unit (rounding), but 2011 (314,998 vs 315,026), 2012 (297,502 vs 297,575) and 2015 (305,054 vs 305,070) differ by up to ~75 mio tkm (<0.03%). Some freight is evidently not allocated to a distance band. Small, but state which basis you used.
+- The number of reported distance bands varies by year: 7 in most years, 8 in 2016 and 2021 (the `KM_GE6000` band only reports occasionally). So a year-over-year sum-of-bands series is not built on a constant set of bands. Immaterial here (that band is tiny), but it is the kind of thing that silently breaks trend comparisons.
+- Trend: tonne-km peaked in 2007 (335,056), fell ~10% in 2009 (financial crisis), and has declined since 2019. COVID (2020) cost only -2.4%, far less than 2009 - freight kept moving while passenger transport collapsed.
 
 ## road_go_na_rl3g (freight by region of loading)
 
@@ -29,6 +32,14 @@ Shape 38486 x 21. Wide format, one column per year 2008–2024 (17 year columns)
   - `nst07` (goods type, NST2007) has 22 values: `GT01`–`GT20`, plus `TOTAL` (aggregate — exclude when summing) and `UNK` (unknown goods type).
 - German regions present / missing:
   - 475 DE NUTS-3 regions present (`DE111`, `DE112`, … `DE11A`, `DE11B` …). Codes go hex-style past 9 (DE11A/B/C), so treat them as strings, never numeric.
+- Tonnage measures weight, not economic value (evidenced, 2024, `sql/goods_type_tonnage.sql`):
+  mining/quarrying products 749,693 THS_T dominate, at 2.6x the next category;
+  transport equipment is 64,985 (~1/11th) and machinery/computers/electrical is
+  30,370 (~1/25th, last in the top 15). Germany's automotive and machinery
+  exports barely register by weight. Consequence: any regional or goods ranking
+  built on tonnes is largely a map of quarrying and construction activity.
+  This is why the top regions are Rhein-Erft (lignite), Mayen-Koblenz (basalt)
+  and Börde, and why CO2-by-region from tonnage was rejected (assumption #9).
 - Format issues found:
   - Column name is the literal `geo\TIME_PERIOD` (backslash in the header) — rename on load.
   - Very high missingness: 2024 is 55.2% missing, 2008 is 48.8% missing. Root cause is survey suppression of small regions (see caveats). Region-level values for small NUTS3 areas are unreliable.

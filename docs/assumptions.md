@@ -17,6 +17,11 @@ Notes on #6 and #7:
 - The UBA factors are well-to-wheel CO2e (include fuel supply chain + CH4/N2O), not tailpipe CO2. Q2's toll CO2 surcharge is tailpipe-based. Do not mix the two scopes across questions without stating it.
 - Simplest defensible Q1 default: apply 118 g CO2e/tkm (Lkw gesamt) uniformly. The richer version maps distance bands to vehicle classes, but that mapping is an assumption we have to defend (#7), not data.
 
+| 9 | Q1 regional view is reported in tonnes loaded, not CO2 | Regional freight = THS_T (tonnes loaded); CO2 reported only at distance-band level | Data limitation: `road_go_na_rl3g` has no tonne-km at NUTS3, and the emission factor is per tonne-km | 2026-07-17 |
+
+Note on #9:
+- CO2 per region cannot be derived from tonnes alone - the units don't match the per-tonne-km factor. Allocating national tonne-km to regions by tonnage share was considered and rejected: it assumes identical average haul distance in every region, and under a flat factor it produces a CO2 ranking mathematically identical to the tonnage ranking, i.e. no new information dressed up as a carbon result. Report tonnes for the regional view, keep CO2 at the distance-band level, and state this in the README limitations.
+
 Notes on #3, #5, #8:
 - #3 is the weakest number in the whole model. Manufacturers do not publish e-truck list prices, so the gap is an estimate. The break-even mileage in Q2 is highly sensitive to it — run the cost model across a price-gap range (e.g. 150k-250k), do not report a single break-even point as if it were precise.
 - #5: the "budget" price is a choice, not a fact. Tying it to a base-year mean from our own Oil Bulletin data keeps it reproducible and defensible. State the base year explicitly in the Q3 output.
