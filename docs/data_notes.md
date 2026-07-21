@@ -100,6 +100,23 @@ All logged in `docs/assumptions.md` (#1-5, #8) with sources. Key points:
 - Diesel 40t long-haul: 30 l/100km (ICCT combined-load reference). E-truck: 103 kWh/100km (eActros 600 real-world test). E-truck range 500 km/charge.
 - Purchase-price gap (~180-220k EUR) is an ESTIMATE — manufacturers don't publish e-truck list prices. It is the weakest input and the Q2 break-even is very sensitive to it; run a range, don't report a single point.
 
+## Cleaned price data (Q2/Q3 inputs)
+
+Produced by `src/clean_prices.py`.
+
+**`data_clean/diesel_price_de_weekly.csv`** - 1,074 weekly rows, 2005-01-03 to 2026-07-06, no nulls.
+- Columns: `date`, `price_with_tax_eur_per_l`, `price_wo_tax_eur_per_l`.
+- Converted from the bulletin's EUR per 1000 litres to EUR per litre.
+- The source sheet has ~25 footer rows (legends, a long copyright/disclaimer block sitting in the CTR column). They are removed by requiring column 0 to parse as a date - do not trust a naive `read_excel` on this file.
+- The `CTR` column is a legend artefact, not a data dimension; country series live in separate columns (`DE_price_with_tax_diesel`), located by row-0 label rather than a hardcoded index.
+- Validation: tax is 51.3% of the 2024 pump price, matching German excise + 19% VAT. Annual means: 2021 1.389, 2022 1.954 (+41%, Ukraine shock), 2023 1.728, 2024 1.647. Range 0.941-2.434.
+
+**`data_clean/electricity_price_de.csv`** - 750 rows, 2007-2025, Germany, EUR.
+- Columns: `geo`, `nrg_cons` (consumption band), `tax` (I_TAX / X_TAX / X_VAT), `period`, `year`, `semester`, `price_eur_per_kwh`. Semiannual (S1/S2).
+- Bands and tax bases are deliberately KEPT so the SQL layer can choose and run sensitivities.
+- Tax basis to use: `X_VAT` (excludes VAT, which a business reclaims, but includes levies it actually pays). `X_TAX` strips all levies and understates real cost; `I_TAX` includes VAT and overstates it.
+- 2024 ex-VAT by band: 0.331 (<20 MWh), 0.272 (20-499), 0.234 (500-1999), 0.205 (2000-19999), 0.130 (>=150000). Price falls with volume, so the e-truck charging cost depends on fleet size - see assumption #8.
+
 ## Known caveats to carry into the analysis
 
 - 21.6% of EU road freight vehicle-km in 2024 were empty runs (Eurostat). Emission factors per tonne-km partially absorb this, note in limitations.
