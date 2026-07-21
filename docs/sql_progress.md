@@ -48,6 +48,25 @@ ORDER BY year;
 - Emission factor used is the fleet average 118 g CO2e/tkm, well-to-wheel
   (assumptions #6/#7). Refining to per-band factors would use a keyed INNER JOIN.
 
+## Q1 COMPLETE (all outputs in sql/)
+1. `q1_co2_by_distance_band.sql` - ~31.9 Mt CO2e total, 2024.
+2. `q1_tkm_share_by_distance_band.sql` - band shares of tonne-km.
+3. `q1_top_regions_tonnage.sql` - top regions by tonnage (Hamburg 54,855 leads).
+4. `q1_electrifiable_share.sql` - 80.9% within 500 km, 19.1% beyond.
+Supporting: `goods_type_tonnage.sql` (tonnage-bias evidence),
+`freight_tkm_yoy.sql` (2009 crisis -10%, COVID only -2.4%).
+
+Q1 headline: ~31.9 Mt CO2e from German road freight in 2024, and ~81% of it
+sits on routes within a 500 km single-charge electric range (assumption #4).
+Regional view is reported in tonnes, not CO2 (assumption #9).
+
+SQL concepts now covered: SELECT/WHERE/GROUP BY/ORDER BY/LIMIT, aggregate
+aliases, CTEs, window functions (SUM() OVER (), LAG()), CROSS JOIN, keyed
+INNER JOIN, CASE WHEN / IN, GROUP BY on a CASE alias. Debugging lessons:
+case-sensitive string filters fail silently (and `!=` fails invisibly by
+keeping rows), CTEs are statement-scoped, joins never persist, and a passing
+sanity check only validates the thing it tests.
+
 ## Next steps
 1. Finish the LAG year-over-year query (above).
 2. Decide and document the CO2-by-region approach (proxy for tonne-km).
