@@ -67,6 +67,39 @@ case-sensitive string filters fail silently (and `!=` fails invisibly by
 keeping rows), CTEs are statement-scoped, joins never persist, and a passing
 sanity check only validates the thing it tests.
 
+## Q2 IN PROGRESS (cost model, 4 stages)
+Stage 1 DONE - `sql/q2_params.sql` builds `params` (long) and `p` (wide, 1 row,
+7 DOUBLE columns). Prices deliberately excluded: they come from the real tables.
+
+Stage 2 NEXT - cost per km, built in two steps:
+  2a DONE - the `p` pivot.
+  2b TODO - fetch the three prices and verify, THEN add arithmetic. Write three
+  CTEs each returning one row, and CROSS JOIN them onto `p`:
+    - diesel_2024:  AVG(price_with_tax_eur_per_l) FROM diesel_price
+                    WHERE year(date) = 2024                  -> expect ~1.647
+    - elec_2024:    AVG(price_eur_per_kwh) FROM electricity_price
+                    WHERE year = 2024 AND tax = 'X_VAT'
+                      AND nrg_cons = 'MWH500-1999'           -> expect ~0.2344
+                    (that band ~= a 10-truck fleet; a 1-truck operator would
+                     use MWH20-499 at ~0.272 - state the choice)
+    - toll_diesel:  total_ct_km / 100.0 FROM toll_rates
+                    WHERE co2_class = 1 AND euro_class = 'Euro 6'
+                      AND weight_axle_class = '>18t 5+ axles' -> expect 0.348
+  Then the arithmetic:
+    diesel/km  = (diesel_l_per_100km/100) * (with_tax / (1 + vat_rate))
+                 + toll_eur_per_km + maint_diesel_eur_per_km   -> expect ~0.91
+    electric/km= (etruck_kwh_per_100km/100) * eur_per_kwh
+                 + 0 (CO2 class 5 exempt) + maint_electric_eur_per_km -> ~0.32
+
+Stage 3 TODO - break-even annual mileage:
+  purchase_gap_eur / ((diesel_per_km - electric_per_km) * ownership_years).
+Stage 4 TODO - sensitivity: diesel +/-20 ct, toll exemption ending (2031),
+  electricity doubling, purchase gap 150k-250k.
+
+Expected headline to test: the toll exemption (0.348 EUR/km) looks larger than
+the fuel-vs-electricity saving (~0.17), i.e. policy not fuel economics is what
+makes e-trucks competitive - which makes the 2031 expiry the key sensitivity.
+
 ## Next steps
 1. Finish the LAG year-over-year query (above).
 2. Decide and document the CO2-by-region approach (proxy for tonne-km).

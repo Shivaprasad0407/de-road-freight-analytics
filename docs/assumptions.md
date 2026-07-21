@@ -17,6 +17,8 @@ Notes on #6 and #7:
 - The UBA factors are well-to-wheel CO2e (include fuel supply chain + CH4/N2O), not tailpipe CO2. Q2's toll CO2 surcharge is tailpipe-based. Do not mix the two scopes across questions without stating it.
 - Simplest defensible Q1 default: apply 118 g CO2e/tkm (Lkw gesamt) uniformly. The richer version maps distance bands to vehicle classes, but that mapping is an assumption we have to defend (#7), not data.
 
+| 10 | Maintenance and repair cost per km | Diesel ~0.15 EUR/km (ESTIMATE); electric ~0.075 EUR/km (50% lower) | "Up to 50% lower for BEV" from TNO via Zero Emission Truck Taskforce TCO paper; absolute diesel EUR/km is industry-typical, not a hard source | 2026-07-17 |
+| 11 | Ownership period / reference annual mileage | 5 years first-owner horizon; 100,000 km per year long-haul reference | ICCT and German TCO practice: 5-year first-owner period, long-haul 350-500 km/day, >=100,000 km/yr | 2026-07-17 |
 | 9 | Q1 regional view is reported in tonnes loaded, not CO2 | Regional freight = THS_T (tonnes loaded); CO2 reported only at distance-band level | Data limitation: `road_go_na_rl3g` has no tonne-km at NUTS3, and the emission factor is per tonne-km | 2026-07-17 |
 
 Note on #9:
