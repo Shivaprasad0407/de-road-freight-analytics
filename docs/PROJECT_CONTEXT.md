@@ -54,13 +54,13 @@ Now in **Week 2, Q2** (cost model), stage 2b.
   diesel with-tax 2024 = **1.647 EUR/l**, electricity (X_VAT, MWH500-1999) =
   **0.23435 EUR/kWh**, diesel toll (CO2 class 1, Euro 6, >18t 5+ axles) =
   **0.348 EUR/km**. All correct.
-- **Stage 2b step 2 = NEXT.** Add the cost-per-km arithmetic to that query:
-  - diesel/km = (diesel_l_per_100km/100) * (avg_diesel_price / (1 + vat_rate))
-                + diesel_toll_per_km + maint_diesel_eur_per_km   -> expect ~0.91
-  - electric/km = (etruck_kwh_per_100km/100) * avg_elec_price
-                + 0 (CO2 class 5 exempt) + maint_electric_eur_per_km -> ~0.32
-  Note the diesel price is divided by 1.19 because hauliers reclaim VAT.
-- Stage 3: break-even mileage =
+- Stage 2b step 2 DONE and VERIFIED: cost-per-km arithmetic added to the
+  step-1 query (CTEs sourced from real tables, NOT hardcoded literals):
+  - diesel_cost_per_km = **0.9132** (energy 0.415 + toll 0.348 + maint 0.15)
+  - electric_cost_per_km = **0.3164** (energy 0.241 + toll 0 + maint 0.075)
+  - saving = **0.597 EUR/km**. Diesel price divided by 1.19 (VAT reclaim);
+    electricity from X_VAT band so no division. One-row output confirmed.
+- **Stage 3 = NEXT.** break-even mileage =
   purchase_gap_eur / ((diesel_per_km - electric_per_km) * ownership_years).
 - Stage 4: sensitivity - diesel +/-20 ct, toll exemption ending 2031,
   electricity doubling, purchase gap 150k-250k.

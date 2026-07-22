@@ -74,7 +74,10 @@ Stage 1 DONE - `sql/q2_params.sql` builds `params` (long) and `p` (wide, 1 row,
 Stage 2 NEXT - cost per km, built in two steps:
   2a DONE - the `p` pivot.
   2b step 1 DONE + VERIFIED: diesel 1.647, electricity 0.23435, toll 0.348.
-  2b step 2 TODO - add the cost-per-km arithmetic (formulas below). Write three
+  2b step 2 DONE + VERIFIED: diesel_cost_per_km = 0.9132, electric = 0.3164,
+    saving 0.597 EUR/km. Prices sourced from the three CTEs (not hardcoded);
+    one-row output confirmed. Stage 3 (break-even) is next.
+  [historical formulas below] - add the cost-per-km arithmetic. Write three
   CTEs each returning one row, and CROSS JOIN them onto `p`:
     - diesel_2024:  AVG(price_with_tax_eur_per_l) FROM diesel_price
                     WHERE year(date) = 2024                  -> expect ~1.647
