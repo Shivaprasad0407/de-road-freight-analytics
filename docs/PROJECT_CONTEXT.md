@@ -75,8 +75,19 @@ Now in **Week 2, Q2** (cost model), stage 2b.
   Policy (toll exemption), not fuel economics, drives e-truck competitiveness;
   the 2031 exemption expiry is the decisive variable. Q2 COMPLETE.
 
-## Q3 - not started
-Quarterly actual diesel cost/km vs a fixed budget price. Budget = 2021 annual
-mean German diesel = 1.389 EUR/l (pre-shock base year, assumption #5).
+## Q3 - COMPLETE (`sql/q3_diesel_variance.sql`)
+Quarterly actual diesel vs fixed 2021 budget (1.389 EUR/l with tax, assumption
+#5, sourced from a `budget_2021` CTE not hardcoded). 16 quarters 2021-2024.
+- 2021 quarters straddle and cancel to ~0 (budget IS the 2021 mean): internal
+  check passed. 2024 avg ~+18.6% (matches 2024 mean 1.647).
+- Shock: Q2 2022 peaked +46.8% over budget; NEVER returned. Every quarter
+  2022-2024 sits +14% to +47% above the 2021 baseline -> structural plateau,
+  not a transient spike.
+- cost/km layer (CROSS JOIN p, VAT-reclaimed ex-VAT, 30 l/100km): Q2 2022
+  variance +0.164 EUR/km = ~16,380 EUR/yr extra fuel per 100k-km truck vs plan;
+  even Q4 2024 still +0.049 EUR/km (~4,940 EUR/yr). Variance never closes.
+- Through-line: Q1 sized emissions, Q2 showed e-trucks pay back if policy holds,
+  Q3 shows diesel status quo keeps getting costlier.
 
-## Then: Week 3 = Power BI (Prasad builds), pseudonymization note, README write-up.
+## MODELING COMPLETE. Then: Week 3 = Power BI (Prasad builds),
+pseudonymization note, README write-up.
