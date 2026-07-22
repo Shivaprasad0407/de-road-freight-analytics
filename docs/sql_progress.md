@@ -95,8 +95,12 @@ Stage 2 NEXT - cost per km, built in two steps:
     electric/km= (etruck_kwh_per_100km/100) * eur_per_kwh
                  + 0 (CO2 class 5 exempt) + maint_electric_eur_per_km -> ~0.32
 
-Stage 3 TODO - break-even annual mileage:
-  purchase_gap_eur / ((diesel_per_km - electric_per_km) * ownership_years).
+Stage 3 DONE + VERIFIED - break-even annual mileage = 67,021 km/year
+  (purchase_gap / (saving * ownership_years)). Below typical long-haul mileage,
+  so e-truck pays back in ~2.8 yrs. Saving 0.597/km = toll 0.348 + energy 0.174
+  + maint 0.075; toll is 58% of the advantage (policy-driven). Wrap the Stage 2b
+  query as a `costs` CTE, then divide in the outer SELECT. Cross joins live
+  INSIDE costs (where the price columns are used), not the outer query.
 Stage 4 TODO - sensitivity: diesel +/-20 ct, toll exemption ending (2031),
   electricity doubling, purchase gap 150k-250k.
 

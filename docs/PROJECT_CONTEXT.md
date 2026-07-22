@@ -60,9 +60,11 @@ Now in **Week 2, Q2** (cost model), stage 2b.
   - electric_cost_per_km = **0.3164** (energy 0.241 + toll 0 + maint 0.075)
   - saving = **0.597 EUR/km**. Diesel price divided by 1.19 (VAT reclaim);
     electricity from X_VAT band so no division. One-row output confirmed.
-- **Stage 3 = NEXT.** break-even mileage =
-  purchase_gap_eur / ((diesel_per_km - electric_per_km) * ownership_years).
-- Stage 4: sensitivity - diesel +/-20 ct, toll exemption ending 2031,
+- Stage 3 DONE and VERIFIED: break-even = purchase_gap / (saving * years) =
+  **67,021 km/year**. Below typical long-haul (100-130k), so e-truck repays
+  the 200k gap in ~2.8 yrs on economics alone. Saving decomposes as toll 0.348
+  (58%) + energy 0.174 (29%) + maint 0.075 (13%) -> POLICY dominates.
+- **Stage 4 = NEXT.** sensitivity - diesel +/-20 ct, toll exemption ending 2031,
   electricity doubling, purchase gap 150k-250k.
 - Hypothesis to test: the toll exemption (~0.35/km) exceeds the fuel-vs-
   electricity saving (~0.17/km), so POLICY not fuel economics drives e-truck
