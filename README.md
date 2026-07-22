@@ -31,7 +31,7 @@ Using weekly diesel prices, the model computes actual fuel cost per km per quart
 | Average CO2 emission factors for road freight (g CO2 per tonne-km) | Umweltbundesamt, Emissionsdaten des Verkehrs | Q1, Q2 |
 | Toll rates per km by CO2 emission class | Toll Collect, official Mauttarife | Q2 |
 | Weekly diesel prices, Germany | European Commission, Weekly Oil Bulletin | Q2, Q3 |
-| Industrial electricity prices | Destatis / BDEW | Q2 |
+| Industrial electricity prices (non-household, by consumption band) | Eurostat, nrg_pc_205 | Q2 |
 | Truck consumption and purchase price assumptions | Manufacturer and ICCT publications, documented in docs/assumptions.md | Q2 |
 
 Methodology reference for emissions accounting: GLEC Framework (Smart Freight Centre).
