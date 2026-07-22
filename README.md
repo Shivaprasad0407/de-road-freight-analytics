@@ -12,8 +12,16 @@ Total emissions are known. The open question is the distribution: which regions 
 **Q2. At what annual mileage does an electric truck beat a diesel truck on total cost, under the current German toll system?**
 Since December 2023 the German truck toll (Lkw-Maut) includes a CO2 surcharge of 200 EUR per tonne of CO2. Electric trucks are exempt from the toll until mid-2031. Diesel therefore pays fuel plus toll plus CO2 surcharge, electric pays electricity and no toll, but costs more to buy. This project models cost per km for both drivetrains and finds the break-even annual mileage, with sensitivity analysis on diesel price, electricity price, and the end of the toll exemption.
 
-**Q3. How much did diesel price volatility from 2021 to 2025 move freight cost per km against a fixed budget?**
+**Q3. How much did diesel price volatility from 2021 to 2024 move freight cost per km against a fixed budget?**
 Using weekly diesel prices, the model computes actual fuel cost per km per quarter against a budgeted price and reports the variance in EUR and percent. This is a standard budget-vs-actual variance analysis applied to fleet operations.
+
+## Key findings
+
+**Q1 — emissions concentrate on electrifiable routes.** German road freight emitted roughly 31.9 Mt CO2e in 2024. About 81% of tonne-km — and therefore of CO2 — falls within a 500 km single-charge range where battery-electric trucks are viable today (assumption #4). The regional view is reported in tonnes loaded rather than CO2, because the NUTS3 regional data has no tonne-km (Hamburg leads on tonnage).
+
+**Q2 — e-trucks win today, but on policy, not fuel economics.** Modeled operating cost is about 0.91 EUR/km for diesel versus 0.32 EUR/km for electric, giving a break-even annual mileage of ~67,000 km. Since typical long-haul trucks run 100,000–130,000 km/year, an e-truck repays its ~200,000 EUR price premium in roughly 2.8 years. But the sensitivity analysis shows the toll exemption alone accounts for 58% of the per-km advantage: if it ends in 2031 and e-trucks pay the same toll as diesel, break-even jumps to ~161,000 km/year — above real-world mileage. Diesel price (±20 ct moves break-even only ~5,000 km) barely matters by comparison. The 2031 toll-exemption expiry is the decisive variable.
+
+**Q3 — the diesel shock became a plateau.** Against a fixed pre-shock budget (the 2021 German annual mean, 1.389 EUR/l), diesel peaked at +46.8% in Q2 2022 and never returned. Every quarter from 2022 through 2024 sits 14–47% above the 2021 baseline. At the peak that is +0.164 EUR/km, or about 16,000 EUR per year of extra fuel cost for a single 100,000 km/year truck versus plan — and even the cheapest recent quarter still runs ~5,000 EUR/year over. The variance never closes, which is the structural case behind the Q2 e-truck economics.
 
 ## Data sources
 
@@ -34,7 +42,7 @@ Methodology reference for emissions accounting: GLEC Framework (Smart Freight Ce
 data_raw/     Raw downloads, not committed (see .gitignore). Download scripts in src/ reproduce them.
 data_clean/   Cleaned, analysis-ready tables.
 src/          Python scripts for download and cleaning.
-sql/          DuckDB models: staging, emissions, cost model, variance.
+sql/          DuckDB models: params, Q1 emissions, Q2 cost model + sensitivity, Q3 variance.
 dashboard/    Power BI file and exported screenshots.
 docs/         Assumptions log and data notes.
 ```
@@ -43,8 +51,8 @@ docs/         Assumptions log and data notes.
 
 - [x] Questions defined, scaffold created
 - [x] Data downloaded and profiled
-- [ ] Cleaning scripts
-- [ ] SQL models (Q1, Q2, Q3)
+- [x] Cleaning scripts
+- [x] SQL models (Q1, Q2, Q3) — complete and verified
 - [ ] Power BI report
 - [ ] Final write-up
 
