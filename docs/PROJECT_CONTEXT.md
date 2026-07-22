@@ -64,11 +64,16 @@ Now in **Week 2, Q2** (cost model), stage 2b.
   **67,021 km/year**. Below typical long-haul (100-130k), so e-truck repays
   the 200k gap in ~2.8 yrs on economics alone. Saving decomposes as toll 0.348
   (58%) + energy 0.174 (29%) + maint 0.075 (13%) -> POLICY dominates.
-- **Stage 4 = NEXT.** sensitivity - diesel +/-20 ct, toll exemption ending 2031,
-  electricity doubling, purchase gap 150k-250k.
-- Hypothesis to test: the toll exemption (~0.35/km) exceeds the fuel-vs-
-  electricity saving (~0.17/km), so POLICY not fuel economics drives e-truck
-  competitiveness, making the 2031 exemption expiry the key sensitivity.
+- Stage 4 DONE and VERIFIED: 7-scenario tornado (`sql/q2_sensitivity.sql`),
+  one lever each, sorted by break-even. Results (break-even km/yr):
+  gap_150k 50,266 | diesel_plus_0_20 61,800 | baseline 67,021 |
+  diesel_minus_0_20 73,205 | gap_250k 83,776 | electricity_doubles 112,534 |
+  toll_exemption_ends 160,753.
+- HYPOTHESIS CONFIRMED. Ranked by shift from baseline: toll exemption ending
+  +94k (only lever pushing break-even above real-world mileage 100-130k),
+  electricity doubling +45k, purchase gap +/-16k, diesel +/-20ct only ~5k.
+  Policy (toll exemption), not fuel economics, drives e-truck competitiveness;
+  the 2031 exemption expiry is the decisive variable. Q2 COMPLETE.
 
 ## Q3 - not started
 Quarterly actual diesel cost/km vs a fixed budget price. Budget = 2021 annual

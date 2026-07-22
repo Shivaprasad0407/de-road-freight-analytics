@@ -101,12 +101,17 @@ Stage 3 DONE + VERIFIED - break-even annual mileage = 67,021 km/year
   + maint 0.075; toll is 58% of the advantage (policy-driven). Wrap the Stage 2b
   query as a `costs` CTE, then divide in the outer SELECT. Cross joins live
   INSIDE costs (where the price columns are used), not the outer query.
-Stage 4 TODO - sensitivity: diesel +/-20 ct, toll exemption ending (2031),
-  electricity doubling, purchase gap 150k-250k.
+Stage 4 DONE + VERIFIED - `sql/q2_sensitivity.sql`. A `scenarios` VALUES CTE
+  (one lever per row: diesel_delta, elec_mult, electric_toll_mult, gap_override)
+  cross-joined into the cost model; break-even computed in a wrapping subquery
+  (can't reference a SELECT alias in the same SELECT), ORDER BY break-even.
+  Results: toll_exemption_ends 160,753 (only lever above real mileage) >
+  electricity_doubles 112,534 > gap 84k/50k > baseline 67,021 > diesel +/-20ct
+  62-73k. Toll toggle = electric_toll_mult * sourced diesel toll (no magic 0.348).
 
-Expected headline to test: the toll exemption (0.348 EUR/km) looks larger than
-the fuel-vs-electricity saving (~0.17), i.e. policy not fuel economics is what
-makes e-trucks competitive - which makes the 2031 expiry the key sensitivity.
+HEADLINE CONFIRMED: policy (toll exemption), not fuel economics, makes e-trucks
+competitive. Toll exemption ending moves break-even +94k vs diesel price's ~5k.
+The 2031 expiry is the decisive variable. Q2 COMPLETE - on to Q3 / Week 3.
 
 ## Next steps
 1. Finish the LAG year-over-year query (above).
