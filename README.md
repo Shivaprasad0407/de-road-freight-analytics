@@ -53,8 +53,12 @@ docs/         Assumptions log and data notes.
 - [x] Data downloaded and profiled
 - [x] Cleaning scripts
 - [x] SQL models (Q1, Q2, Q3) — complete and verified
-- [ ] Power BI report
-- [ ] Final write-up
+- [x] Power BI report — four pages (Overview, Q1, Q2, Q3), themed
+- [x] Final write-up — see [docs/PROJECT_REPORT.md](docs/PROJECT_REPORT.md)
+
+**Full write-up:** the complete narrative report (findings, method, sensitivity,
+limitations, data-protection note, reproducibility) is in
+[docs/PROJECT_REPORT.md](docs/PROJECT_REPORT.md).
 
 ## Limitations
 
