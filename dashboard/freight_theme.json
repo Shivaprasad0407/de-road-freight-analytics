@@ -1,0 +1,75 @@
+{
+  "name": "Freight Cost & CO2 — Slate",
+  "dataColors": [
+    "#2E5E4E", "#C6803B", "#3E6B89", "#7BA05B", "#A34A3F",
+    "#5B6B7B", "#8C6BA8", "#D9B44A", "#4C8C7D", "#B5651D"
+  ],
+  "foreground": "#1A2233",
+  "foregroundNeutralSecondary": "#5B6B7B",
+  "background": "#FFFFFF",
+  "backgroundLight": "#EDEFF3",
+  "backgroundNeutral": "#E3E6EB",
+  "tableAccent": "#2E5E4E",
+  "good": "#2E5E4E",
+  "neutral": "#D9B44A",
+  "bad": "#A34A3F",
+  "maximum": "#A34A3F",
+  "center": "#D9B44A",
+  "minimum": "#2E5E4E",
+  "textClasses": {
+    "title": { "fontFace": "Segoe UI Semibold", "fontSize": 14, "color": "#1A2233" },
+    "header": { "fontFace": "Segoe UI Semibold", "fontSize": 12, "color": "#1A2233" },
+    "label": { "fontFace": "Segoe UI", "fontSize": 10, "color": "#5B6B7B" },
+    "callout": { "fontFace": "Segoe UI Semibold", "fontSize": 42, "color": "#2E5E4E" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E3E6EB" } }, "radius": 10 }],
+        "dropShadow": [{ "show": true, "color": { "solid": { "color": "#1A2233" } }, "position": "Outer", "preset": "BottomRight", "shadowSpread": 3, "transparency": 88 }],
+        "title": [{
+          "show": true,
+          "fontColor": { "solid": { "color": "#1A2233" } },
+          "background": { "solid": { "color": "#FFFFFF" } },
+          "alignment": "left",
+          "fontSize": 13,
+          "fontFamily": "Segoe UI Semibold"
+        }],
+        "visualHeader": [{ "show": true, "transparency": 100 }]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#F4F6F8" } }, "transparency": 0 }],
+        "outspace": [{ "color": { "solid": { "color": "#F4F6F8" } }, "transparency": 0 }]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [{ "color": { "solid": { "color": "#2E5E4E" } }, "fontSize": 34, "fontFamily": "Segoe UI Semibold" }],
+        "categoryLabels": [{ "color": { "solid": { "color": "#5B6B7B" } }, "fontSize": 11 }]
+      }
+    },
+    "cardVisual": {
+      "*": {
+        "calloutValue": [{ "fontFamily": "Segoe UI Semibold", "fontSize": 34, "color": { "solid": { "color": "#2E5E4E" } } }]
+      }
+    },
+    "columnChart": {
+      "*": {
+        "dataPoint": [{ "defaultColor": { "solid": { "color": "#3E6B89" } } }]
+      }
+    },
+    "barChart": {
+      "*": {
+        "dataPoint": [{ "defaultColor": { "solid": { "color": "#3E6B89" } } }]
+      }
+    },
+    "lineChart": {
+      "*": {
+        "lineStyles": [{ "strokeWidth": 3 }]
+      }
+    }
+  }
+}
